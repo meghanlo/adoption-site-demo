@@ -83,7 +83,10 @@ function App() {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      // Introduce a random failure (20% chance)
+      if (Math.random() < 0.2) {
+        throw new Error("Random API failure occurred.");
+      }
       if (data) setDogs(data);
     } catch (error) {
       console.error('Error fetching dogs:', error);
