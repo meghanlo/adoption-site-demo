@@ -63,6 +63,10 @@ function App() {
     const { data: { user } } = await supabase.auth.getUser();
     setUser(user);
     // Set initial RUM user
+    if (!user) {
+      // This throws an error that isn't caught anywhere
+      Promise.reject(new Error("User data unexpectedly missing"));
+    }
     if (user) {
       setRumUser({
         id: user.id,
